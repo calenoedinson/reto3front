@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>CLIENTES</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/funcionesClientes.js"></script>
+</head>
+
+<body>
+    <center>
+        <a href="Cabana.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Mensaje.html" title="MENSAJES">MENSAJES</a>
+        <h2>GESTIÓN CLIENTES </h2>
+        <fieldset style="width: 30%">
+            <legend>Datos del Cliente</legend>
+            <table>
+                <tr>
+                    <th>ID:</th>
+                    <td><input type="number" id="ide"></td>
+                </tr>
+                <tr>
+                    <th>NOMBRE:</th>
+                    <td><input type="text" id="nombre"> </td>
+                </tr>
+                <tr>
+                    <th>EMAIL:</th>
+                    <td><input type="email" id="correo"> </td>
+                </tr>
+                <tr>
+                    <th>EDAD:</th>
+                    <td><input type="number" id="edad"> </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="GUARDAR" onclick="guardarCliente()"> &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="EDITAR" onclick="editarCliente()" title="Edita según ID">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="ELIMINAR" onclick="eliminarCliente()"
+                            title="Introduce solo el ID a eliminar">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <h2> CONSULTA DE CLIENTES</h2>
+        <fieldset style="width: 30%">
+            <legend>Consulta</legend>
+            <table>
+                <tr>
+                <tr>
+                    <th style="color: green;">ID:</th>
+                    <td><input type="number" id="id"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="CONSULTAR TODOS" onclick="consultarClienteTodo()">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="CONSULTAR ID" onclick="buscarClienteId($('#id'))">
+                    </td>
+                </tr>
+                <tr>
+                    <table border="2" cellpadding="3" id="TablaResultadoClientes">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </tr>
+                </tr>
+            </table>
+        </fieldset>
+    </center>
+</body>
+
+</html>

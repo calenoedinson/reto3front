@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>MENSAJES</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/funcionesMensajes.js"></script>
+</head>
+
+<body>
+    <center>
+        <a href="Cabana.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Clientes.html" title="CLIENTES">CLIENTES</a>
+        <h2>GESTIÓN MENSAJES </h2>
+        <fieldset style="width: 30%">
+            <legend>Datos del Mensaje</legend>
+            <table>
+                <tr>
+                    <th>ID:</th>
+                    <td><input type="number" id="ide"></td>
+                </tr>
+                <tr>
+                    <th>MENSAJE:</th>
+                    <td><input type="text" id="mensaje"> </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="GUARDAR" onclick="guardarMensaje()"> &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="EDITAR" onclick="editarMensaje()" title="Edita según ID">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="ELIMINAR" onclick="eliminarMensaje()"
+                            title="Introduce solo el ID a eliminar">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <h2> CONSULTA DE MENSAJES</h2>
+        <fieldset style="width: 30%">
+            <legend>Consulta</legend>
+            <table>
+                <tr>
+                <tr>
+                    <th style="color: violet;">ID:</th>
+                    <td><input type="number" id="id"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="CONSULTAR TODOS" onclick="consultarMensajeTodo()">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="CONSULTAR ID" onclick="buscarMensajeId($('#id'))">
+                    </td>
+                </tr>
+                <tr>
+                    <table border="2" cellpadding="3" id="TablaResultadoMensajes">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </tr>
+                </tr>
+            </table>
+        </fieldset>
+    </center>
+</body>
+
+</html>
