@@ -15,6 +15,33 @@ function getDataReserva() {
     });
 }
 
+function consultarCalificacionTodo() {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Score/all',
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            $("#TablaResultadoCalificaciones").empty();
+            $("#TablaResultadoCalificaciones").append("<tr>");
+            $("#TablaResultadoCalificaciones").append("<th>N°</th>");
+            $("#TablaResultadoCalificaciones").append("<th>RESERVA</th>");
+            $("#TablaResultadoCalificaciones").append("<th>MENSAJE</th>");
+            $("#TablaResultadoCalificaciones").append("<th>PUNTUACIÓN</th>");
+            $("#TablaResultadoCalificaciones").append("</tr>");
+            for (i = 0; i < respuesta.length; i++) {
+                $("#TablaResultadoCalificaciones").append("<tr>");
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].id + "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_reserva + "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_mensaje + "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");                
+                $("#TablaResultadoCalificaciones").append("</tr>");
+            }
+
+        }
+    });
+}
+
 
 function consultarCabanaTodo() {
     $.ajax({

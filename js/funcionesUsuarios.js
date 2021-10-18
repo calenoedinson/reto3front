@@ -1,58 +1,20 @@
-function getDataCabana() {
+function consultarAdministradorTodo() {
     $.ajax({
-        type: 'GET',
-        url: 'http://168.138.144.46:8080/api/Cabin/all',
-        dataType: 'json',
-        success: function (respuesta) {
-            console.log(respuesta)
-            $("#cabanaR").empty();
-            let miLista = "";
-            for (i = 0; i < respuesta.length; i++) {
-                miLista += "<option value=" + respuesta[i].id + ">" + respuesta[i].name + "</option>";
-            }
-            $("#cabanaR").append(miLista);
-        }
-    });
-}
-
-function getDataCliente() {
-    $.ajax({
-        type: 'GET',
-        url: 'http://168.138.144.46:8080/api/Client/all',
-        dataType: 'json',
-        success: function (respuestaC) {
-            console.log(respuestaC)
-            $("#clienteR").empty();
-            let miLista = "";
-            for (i = 0; i < respuestaC.length; i++) {
-                miLista += "<option value=" + respuestaC[i].idClient + ">" + respuestaC[i].name + "</option>";
-            }
-            $("#clienteR").append(miLista);
-        }
-    });
-}
-
-function consultarReservaTodo() {
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/all',
+        url: 'http://168.138.144.46:8080/api/Admin/all',
         type: 'GET',
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            $("#TablaResultadoReservas").empty();
-            $("#TablaResultadoReservas").append("<tr>");
-            $("#TablaResultadoReservas").append("<th>N°</th>");
-            $("#TablaResultadoReservas").append("<th>CABAÑA</th>");
-            $("#TablaResultadoReservas").append("<th>CLIENTE</th>");
-            $("#TablaResultadoReservas").append("<th>CALIFICACION</th>");
-            $("#TablaResultadoReservas").append("</tr>");
+            $("#TablaResultadoAdministradores").empty();
+            $("#TablaResultadoAdministradores").append("<tr>");
+            $("#TablaResultadoAdministradores").append("<th>NOMBRE</th>");
+            $("#TablaResultadoAdministradores").append("<th>EMAIL</th>");
+            $("#TablaResultadoAdministradores").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
-                $("#TablaResultadoReservas").append("<tr>");
-                $("#TablaResultadoReservas").append("<td>" + respuesta[i].idReservation + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + respuesta[i].cabin.name + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.name + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + respuesta[i].score+ "</td>");                
-                $("#TablaResultadoReservas").append("</tr>");
+                $("#TablaResultadoAdministradores").append("<tr>");
+                $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].name + "</td>");
+                $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].email+ "</td>"); 
+                $("#TablaResultadoAdministradores").append("</tr>");
             }
 
         }
