@@ -3,10 +3,11 @@ function getDataCategoria() {
         type: "GET",
         url: 'http://168.138.144.46:8080/api/Category/all',
         dataType: "json",
-        success: function (data) {
-            $.each(data, function (key, registro) {
-                $("#categoria").append('<option value=' + registro.id + '>' + registro.name + '</option>');
-            });
+        success: function (json) {
+            for (i = 0; i < json.items.length; i++) {
+                $("#categoria").append('<option value=' + json.items[i].id + '>' + json.items[i].name + '</option>');
+            }
+            console.log(json)
         },
         error: function (data) {
             alert('error');
