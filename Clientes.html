@@ -9,22 +9,21 @@
 
 <body>
     <center>
-        <a href="Cabana.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
-        <a href="Mensaje.html" title="MENSAJES">MENSAJES</a>
+        <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Mensaje.html" title="MENSAJES">MENSAJES</a>&nbsp;&nbsp;&nbsp;
+        <a href="Reservas.html" title="RESERVAS">RESERVAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Usuarios.html" title="USUARIOS">USUARIOS</a>
         <h2>GESTIÓN CLIENTES </h2>
         <fieldset style="width: 30%">
             <legend>Datos del Cliente</legend>
             <table>
                 <tr>
-                    <th>ID:</th>
-                    <td><input type="number" id="ide"></td>
-                </tr>
-                <tr>
                     <th>NOMBRE:</th>
                     <td><input type="text" id="nombre"> </td>
                 </tr>
                 <tr>
-                    <th>EMAIL:</th>
+                    <th>CORREO:</th>
                     <td><input type="email" id="correo"> </td>
                 </tr>
                 <tr>
@@ -32,12 +31,13 @@
                     <td><input type="number" id="edad"> </td>
                 </tr>
                 <tr>
+                    <th>CONTRASEÑA:</th>
+                    <td><input type="password" id="contrasena"> </td>
+                </tr>
+                <tr>
                     <td colspan="3">
-                        <input type="button" value="GUARDAR" onclick="guardarCliente()"> &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="EDITAR" onclick="editarCliente()" title="Edita según ID">
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="ELIMINAR" onclick="eliminarCliente()"
-                            title="Introduce solo el ID a eliminar">
+                        <input type="button" value="GUARDAR" onclick="guardarCliente()">
+
                     </td>
                 </tr>
             </table>
@@ -46,16 +46,10 @@
         <fieldset style="width: 30%">
             <legend>Consulta</legend>
             <table>
-                <tr>
-                <tr>
-                    <th style="color: green;">ID:</th>
-                    <td><input type="number" id="id"></td>
-                </tr>
+                <tr>                
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="CONSULTAR TODOS" onclick="consultarClienteTodo()">
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="CONSULTAR ID" onclick="buscarClienteId($('#id'))">
+                        <input type="button" value="CONSULTAR" onclick="consultarClienteTodo()">
                     </td>
                 </tr>
                 <tr>

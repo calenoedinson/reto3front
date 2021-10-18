@@ -9,15 +9,18 @@
 
 <body>
     <center>
-        <a href="Cabana.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
-        <a href="Clientes.html" title="CLIENTES">CLIENTES</a>
+        <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Clientes.html" title="CLIENTES">CLIENTES</a>&nbsp;&nbsp;&nbsp;
+        <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Reservas.html" title="RESERVAS">RESERVAS</a>&nbsp;&nbsp;&nbsp;
+        <a href="Usuarios.html" title="USUARIOS">USUARIOS</a>
         <h2>GESTIÓN MENSAJES </h2>
         <fieldset style="width: 30%">
             <legend>Datos del Mensaje</legend>
             <table>
                 <tr>
-                    <th>ID:</th>
-                    <td><input type="number" id="ide"></td>
+                    <th>CABAÑA:</th>
+                    <td><input type="checkbox" id="cabana"></td>
                 </tr>
                 <tr>
                     <th>MENSAJE:</th>
@@ -25,11 +28,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="GUARDAR" onclick="guardarMensaje()"> &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="EDITAR" onclick="editarMensaje()" title="Edita según ID">
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="ELIMINAR" onclick="eliminarMensaje()"
-                            title="Introduce solo el ID a eliminar">
+                        <input type="button" value="GUARDAR" onclick="guardarMensaje()">
                     </td>
                 </tr>
             </table>
@@ -40,14 +39,8 @@
             <table>
                 <tr>
                 <tr>
-                    <th style="color: violet;">ID:</th>
-                    <td><input type="number" id="id"></td>
-                </tr>
-                <tr>
                     <td colspan="3">
-                        <input type="button" value="CONSULTAR TODOS" onclick="consultarMensajeTodo()">
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="button" value="CONSULTAR ID" onclick="buscarMensajeId($('#id'))">
+                        <input type="button" value="CONSULTAR" onclick="consultarMensajeTodo()">
                     </td>
                 </tr>
                 <tr>
