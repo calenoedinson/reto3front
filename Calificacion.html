@@ -22,11 +22,17 @@
             <table>
                 <tr>
                     <th>PUNTUACION:</th>
-                    <td><input type="text" id="puntuacion"></td>
+                    <td><select name="puntuacion" id="puntuacion">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                    </td>
                 </tr>
                 <tr>
                     <th>MENSAJE:</th>
-                    <td><input type="text" id="mensaje"> </td>
+                    <td><input type="text" id="mensaje" maxlength="250" size="250"> </td>
                 </tr>
                 <tr>
                     <th>RESERVA:</th>
@@ -34,7 +40,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="GUARDAR"  onclick="guardarCalificacion()">
+                        <input type="button" value="GUARDAR" onclick="guardarCalificacion()">
                     </td>
                 </tr>
             </table>
