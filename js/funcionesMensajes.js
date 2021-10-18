@@ -1,3 +1,20 @@
+function getDataCabana() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://168.138.144.46:8080/api/Cabin/all',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            $("#cabana").empty();
+            let miLista = "";
+            for (i = 0; i < respuesta.length; i++) {
+                miLista += "<option value=" + respuesta[i].id + ">" + respuesta[i].name + "</option>";
+            }
+            $("#cabana").append(miLista);
+        }
+    });
+}
+
 function consultarMensajeTodo() {
     $.ajax({
         url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',

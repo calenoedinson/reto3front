@@ -37,7 +37,11 @@
                 </tr>
                 <tr>
                     <th>CATEGORÍA:</th>
-                    <td><select name="categoria" id="categoria" onclick="getDataCategoria()"> </td>
+                    <td>
+                        <select id="categoria" onclick="getDataCategoria()" required >   
+                            <option value="">Elige una categoría</option>                         
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3">

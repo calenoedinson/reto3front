@@ -1,25 +1,26 @@
 function getDataCategoria() {
     $.ajax({
-        type: "GET",
+        type: 'GET',
         url: 'http://168.138.144.46:8080/api/Category/all',
-        dataType: "json",
-        success: function (json) {
-            for (i = 0; i < json.items.length; i++) {
-                $("#categoria").append('<option value=' + json.items[i].id + '>' + json.items[i].name + '</option>');
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            $("#categoria").empty();
+            let miLista = "";
+            for (i = 0; i < respuesta.length; i++) {
+                miLista += "<option value=" + respuesta[i].id + ">" + respuesta[i].name + "</option>";
             }
-            console.log(json)
-        },
-        error: function (data) {
-            alert('error');
+            $("#categoria").append(miLista);
         }
     });
 }
+
+
 function consultarCabanaTodo() {
     $.ajax({
         url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
         type: 'GET',
         dataType: 'json',
-
         error: function (xhr, status) {
             alert('ha sucedido un problema, ' + xhr.status);
         },
