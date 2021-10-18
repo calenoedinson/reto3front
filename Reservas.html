@@ -7,7 +7,7 @@
     <script src="js/funcionesReservas.js"></script>
 </head>
 
-<body>
+<body onload="getDataCabana()  ;getDataCliente()">
     <center>
         <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
@@ -23,7 +23,7 @@
                 <tr>
                     <th>CABAÑA:</th>
                     <td>
-                        <select id="cabanaR" onclick="getDataCategoria()" required>
+                        <select id="cabanaR" required>
                             <option value="">Elige una Cabaña</option>
                         </select>
                     </td>
@@ -31,8 +31,7 @@
                 <tr>
                     <th>CLIENTE:</th>
                     <td>
-                        <select id="clienteR" onclick="getDataCategoria()" required>
-                            <option value="">Elige una Cabaña</option>
+                        <select id="clienteR" required>
                         </select>
                     </td>
                 </tr>

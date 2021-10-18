@@ -1,32 +1,24 @@
 function consultarClienteTodo() {
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
+        url: 'http://168.138.144.46:8080/api/Client/all',
         type: 'GET',
         dataType: 'json',
-
-        error: function (xhr, status) {
-            alert('ha sucedido un problema, ' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada, ' + xhr.status);
-        },
-        success: function (json) {
+        success: function (respuesta) {
+            console.log(respuesta)
             $("#TablaResultadoClientes").empty();
             $("#TablaResultadoClientes").append("<tr>");
-            $("#TablaResultadoClientes").append("<th>ID</th>");
-            $("#TablaResultadoClientes").append("<th>Nombre</th>");
-            $("#TablaResultadoClientes").append("<th>Email</th>");
-            $("#TablaResultadoClientes").append("<th>Edad</th>>");
+            $("#TablaResultadoClientes").append("<th>NOMBRE</th>");
+            $("#TablaResultadoClientes").append("<th>CORREO</th>");
+            $("#TablaResultadoClientes").append("<th>EDAD</th>>");
             $("#TablaResultadoClientes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
+            for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoClientes").append("<tr>");
-                $("#TablaResultadoClientes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoClientes").append("<td>" + json.items[i].name + "</td>");
-                $("#TablaResultadoClientes").append("<td>" + json.items[i].email + "</td>");
-                $("#TablaResultadoClientes").append("<td>" + json.items[i].age + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + respuesta[i].name + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + respuesta[i].email + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + respuesta[i].age + "</td>");
                 $("#TablaResultadoClientes").append("</tr>");
             }
-            console.log(json)
+
         }
     });
 }

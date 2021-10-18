@@ -7,7 +7,7 @@
     <script src="js/funcionesCalificaciones.js"></script>
 </head>
 
-<body>
+<body onload="getDataReserva()">
     <center>
         <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
@@ -37,7 +37,7 @@
                 <tr>
                     <th>RESERVA:</th>
                     <td>
-                        <select id="reserva" onclick="getDataReserva()" required>
+                        <select id="reserva" required>
                             <option value="">Elige una reserva</option>
                         </select>
                     </td>

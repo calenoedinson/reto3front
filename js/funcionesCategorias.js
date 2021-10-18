@@ -1,39 +1,33 @@
-function consultarCabanaTodo() {
+function consultarCategoriaTodo() {
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
+        url: 'http://168.138.144.46:8080/api/Category/all',
         type: 'GET',
         dataType: 'json',
-
-        error: function (xhr, status) {
-            alert('ha sucedido un problema, ' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada, ' + xhr.status);
-        },
-        success: function (json) {
-            $("#TablaResultadoCabanas").empty();
-            $("#TablaResultadoCabanas").append("<tr>");
-            $("#TablaResultadoCabanas").append("<th>ID</th>");
-            $("#TablaResultadoCabanas").append("<th>MARCA</th>");
-            $("#TablaResultadoCabanas").append("<th>CUARTOS</th>");
-            $("#TablaResultadoCabanas").append("<th>CATEGORIA</th>>");
-            $("#TablaResultadoCabanas").append("<th>NOMBRE</th>>");
-            $("#TablaResultadoCabanas").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoCabanas").append("<tr>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].brand + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].rooms + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].category_id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].name + "</td>");
-                $("#TablaResultadoCabanas").append("</tr>");
+        success: function (respuesta) {
+            console.log(respuesta)
+            $("#TablaResultadoCategorias").empty();
+            $("#TablaResultadoCategorias").append("<tr>");
+            $("#TablaResultadoCategorias").append("<th>NOMBRE</th>");
+            $("#TablaResultadoCategorias").append("<th>DESCRIPCIÓN</th>");
+            $("#TablaResultadoCategorias").append("<th>CABAÑAS</th>");
+            $("#TablaResultadoCategorias").append("</tr>");
+            for (i = 0; i < respuesta.length; i++) {
+                $("#TablaResultadoCategorias").append("<tr>");
+                $("#TablaResultadoCategorias").append("<td>" + respuesta[i].name + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + respuesta[i].description + "</td>");
+                let caba = " ";
+                for (j = 0; j <  respuesta[i].cabins.length; j++) {
+                    caba += " - " + respuesta[i].cabins[j].name
+                }
+                $("#TablaResultadoCategorias").append("<td>" + caba + "</td>");
+                $("#TablaResultadoCategorias").append("</tr>");
             }
-            console.log(json)
+
         }
     });
 }
 
-function guardarCabana() {
+function guardarCategoria() {
     var datos = {
         id: $('#ide').val(),
         brand: $('#marca').val(),
@@ -60,7 +54,7 @@ function guardarCabana() {
     });
 }
 
-function editarCabana() {
+function editarCategoria() {
     var datos = {
         id: $('#ide').val(),
         brand: $('#marca').val(),
@@ -87,7 +81,7 @@ function editarCabana() {
     });
 }
 
-function eliminarCabana() {
+function eliminarCategoria() {
     var datos = {
         id: $("#ide").val()
     }
@@ -113,28 +107,28 @@ function eliminarCabana() {
     });
 }
 
-function buscarCabanaId(id) {
+function buscarCategoriaId(id) {
     $.ajax({
         url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin/' + id.val(),
         dataType: 'json',
         type: 'GET',
         success: function (json) {
-            $("#TablaResultadoCabanas").empty();
-            $("#TablaResultadoCabanas").append("<tr>");
-            $("#TablaResultadoCabanas").append("<th>ID</th>");
-            $("#TablaResultadoCabanas").append("<th>MARCA</th>");
-            $("#TablaResultadoCabanas").append("<th>CUARTOS</th>");
-            $("#TablaResultadoCabanas").append("<th>CATEGORIA</th>>");
-            $("#TablaResultadoCabanas").append("<th>NOMBRE</th>>");
-            $("#TablaResultadoCabanas").append("</tr>");
+            $("#TablaResultadoCategorias").empty();
+            $("#TablaResultadoCategorias").append("<tr>");
+            $("#TablaResultadoCategorias").append("<th>ID</th>");
+            $("#TablaResultadoCategorias").append("<th>MARCA</th>");
+            $("#TablaResultadoCategorias").append("<th>CUARTOS</th>");
+            $("#TablaResultadoCategorias").append("<th>CATEGORIA</th>>");
+            $("#TablaResultadoCategorias").append("<th>NOMBRE</th>>");
+            $("#TablaResultadoCategorias").append("</tr>");
             for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoCabanas").append("<tr>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].brand + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].rooms + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].category_id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].name + "</td>");
-                $("#TablaResultadoCabanas").append("</tr>");
+                $("#TablaResultadoCategorias").append("<tr>");
+                $("#TablaResultadoCategorias").append("<td>" + json.items[i].id + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + json.items[i].brand + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + json.items[i].rooms + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + json.items[i].category_id + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + json.items[i].name + "</td>");
+                $("#TablaResultadoCategorias").append("</tr>");
             }
             console.log(json)
         },

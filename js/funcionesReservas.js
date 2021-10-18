@@ -20,12 +20,12 @@ function getDataCliente() {
         type: 'GET',
         url: 'http://168.138.144.46:8080/api/Client/all',
         dataType: 'json',
-        success: function (respuesta) {
-            console.log(respuesta)
+        success: function (respuestaC) {
+            console.log(respuestaC)
             $("#clienteR").empty();
             let miLista = "";
-            for (i = 0; i < respuesta.length; i++) {
-                miLista += "<option value=" + respuesta[i].idclient + ">" + respuesta[i].name + "</option>";
+            for (i = 0; i < respuestaC.length; i++) {
+                miLista += "<option value=" + respuestaC[i].idClient + ">" + respuestaC[i].name + "</option>";
             }
             $("#clienteR").append(miLista);
         }
@@ -37,6 +37,7 @@ function consultarMensajeTodo() {
         url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
         type: 'GET',
         dataType: 'json',
+        contentType: 'application/json',
 
         error: function (xhr, status) {
             alert('ha sucedido un problema, ' + xhr.status);
