@@ -1,10 +1,10 @@
 <html>
 
 <head>
-    <title>CABAÑAS</title>
+    <title>CALIFICACIONES</title>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/funcionesCabanas.js"></script>
+    <script src="js/funcionesCalificaciones.js"></script>
 </head>
 
 <body>
@@ -12,52 +12,45 @@
         <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Clientes.html" title="CLIENTES">CLIENTES</a>&nbsp;&nbsp;&nbsp;
         <a href="Mensaje.html" title="MENSAJES">MENSAJES</a>&nbsp;&nbsp;&nbsp;
+        <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Reservas.html" title="RESERVAS">RESERVAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Calificacion.html" title="CALIFICACIONES">CALIFICACIONES</a>&nbsp;&nbsp;&nbsp;
         <a href="Usuarios.html" title="USUARIOS">USUARIOS</a>
-        <h2>GESTIÓN CABAÑAS </h2>
+        <h2>GESTIÓN CALIFICACIONES </h2>
         <fieldset style="width: 30%">
-            <legend>Creación de la cabaña</legend>
+            <legend>Datos de Calificacion</legend>
             <table>
                 <tr>
-                    <th>NOMBRE:</th>
-                    <td><input type="text" id="nombre"> </td>
+                    <th>PUNTUACION:</th>
+                    <td><input type="text" id="puntuacion"></td>
                 </tr>
                 <tr>
-                    <th>MARCA:</th>
-                    <td><input type="text" id="marca"> </td>
+                    <th>MENSAJE:</th>
+                    <td><input type="text" id="mensaje"> </td>
                 </tr>
                 <tr>
-                    <th>CANTIDAD CUARTOS:</th>
-                    <td><input type="number" id="cuartos"> </td>
-                </tr>
-                <tr>
-                    <th>DESCRIPCIÓN:</th>
-                    <td><input type="text" id="descripcion"> </td>
-                </tr>
-                <tr>
-                    <th>CATEGORÍA:</th>
-                    <td><input type="checkbox" id="categoria"> </td>
+                    <th>RESERVA:</th>
+                    <td><input type="checkbox" id="reserva"> </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="GUARDAR" onclick="guardarCabana()">
+                        <input type="button" value="GUARDAR"  onclick="guardarCalificacion()">
                     </td>
                 </tr>
             </table>
         </fieldset>
-        <h2> CONSULTA DE CABAÑAS</h2>
+        <h2> CONSULTA DE CALIFICACIONES</h2>
         <fieldset style="width: 30%">
             <legend>Consulta</legend>
             <table>
                 <tr>
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="CONSULTAR" onclick="consultarCabanaTodo()">
+                        <input type="button" value="CONSULTAR" onclick="consultarCalificacionTodo()">
                     </td>
                 </tr>
                 <tr>
-                    <table border="2" cellpadding="3" id="TablaResultadoCabanas">
+                    <table border="2" cellpadding="3" id="TablaResultadoCalificaciones">
                         <tbody>
                         </tbody>
                     </table>
