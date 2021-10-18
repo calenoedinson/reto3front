@@ -1,3 +1,18 @@
+function getDataCategoria() {
+    $.ajax({
+        type: "GET",
+        url: 'http://168.138.144.46:8080/api/Category/all',
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (key, registro) {
+                $("#categoria").append('<option value=' + registro.id + '>' + registro.name + '</option>');
+            });
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
 function consultarCabanaTodo() {
     $.ajax({
         url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
