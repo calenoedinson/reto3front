@@ -7,7 +7,7 @@
     <script src="js/funcionesCabanas.js"></script>
 </head>
 
-<body onload="getDataCategoria">
+<body>
     <center>
         <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Clientes.html" title="CLIENTES">CLIENTES</a>&nbsp;&nbsp;&nbsp;
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>CATEGORÍA:</th>
-                    <td><select name="categoria" id="categoria"> </td>
+                    <td onload="getDataCategoria()"><select name="categoria" id="categoria"> </td>
                 </tr>
                 <tr>
                     <td colspan="3">
