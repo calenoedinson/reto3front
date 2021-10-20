@@ -29,17 +29,14 @@ function consultarCategoriaTodo() {
 
 function guardarCategoria() {
     var datos = {
-        id: $('#ide').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
-        category_id: $('#categoria').val(),
-        name: $('#nombre').val()
+        name: $('#nombre').val(),
+        description: $('#descripcion').val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
+        url: 'http://168.138.144.46:8080/api/Category/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -48,7 +45,7 @@ function guardarCategoria() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Categoría Guardada');
             limpiarFormulario();
         }
     });
@@ -142,11 +139,8 @@ function buscarCategoriaId(id) {
 }
 
 function limpiarFormulario() {
-    $("#ide").val("");
-    $("#marca").val("");
-    $("#cuartos").val("");
-    $("#categoria").val("");
     $("#nombre").val("");
+    $("#descripcion").val("");
 }
 
 

@@ -25,16 +25,17 @@ function consultarClienteTodo() {
 
 function guardarCliente() {
     var datos = {
-        id: $('#ide').val(),
         name: $("#nombre").val(),
         email: $("#correo").val(),
-        age: $('#edad').val()
+        age: $('#edad').val(),
+        password: $('#contrasena').val()
+        
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client',
+        url: 'http://168.138.144.46:8080/api/Client/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -43,7 +44,7 @@ function guardarCliente() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Cliente guardado');
             limpiarFormulario();
         }
     });
@@ -132,11 +133,9 @@ function buscarClienteId(id) {
     });
 }
 
-function limpiarFormulario() {
-    $("#ide").val("");
+function limpiarFormulario() {  
     $("#nombre").val("");
     $("#correo").val("");
     $("#edad").val("");
+    $("#contrasena").val("");
 }
-
-

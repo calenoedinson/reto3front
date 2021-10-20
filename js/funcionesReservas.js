@@ -44,62 +44,33 @@ function consultarReservaTodo() {
             $("#TablaResultadoReservas").append("<th>N°</th>");
             $("#TablaResultadoReservas").append("<th>CABAÑA</th>");
             $("#TablaResultadoReservas").append("<th>CLIENTE</th>");
-            $("#TablaResultadoReservas").append("<th>CALIFICACION</th>");
+            $("#TablaResultadoReservas").append("<th>EMAIL</th>");
             $("#TablaResultadoReservas").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoReservas").append("<tr>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].idReservation + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.name + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + respuesta[i].score+ "</td>");                
+                $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.email  + "</td>");
                 $("#TablaResultadoReservas").append("</tr>");
             }
-
         }
     });
 }
 
 
-function consultarMensajeTodo() {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-
-        error: function (xhr, status) {
-            alert('ha sucedido un problema, ' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada, ' + xhr.status);
-        },
-        success: function (json) {
-            $("#TablaResultadoMensajes").empty();
-            $("#TablaResultadoMensajes").append("<tr>");
-            $("#TablaResultadoMensajes").append("<th>ID</th>");
-            $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
-            $("#TablaResultadoMensajes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoMensajes").append("<tr>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].messagetext + "</td>");
-                $("#TablaResultadoMensajes").append("</tr>");
-            }
-            console.log(json)
-        }
-    });
-}
-
-function guardarMensaje() {
+function guardarReserva() {
     var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
+        startDate: $('#fecha_i').val(),
+        devolutionDate: $("#fecha_e").val(),
+        cabin: { id: $('#cabanaR').val() },
+        client: { idClient: $('#clienteR').val() }
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://168.138.144.46:8080/api/Reservation/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -108,7 +79,7 @@ function guardarMensaje() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Reserva guardada');
             limpiarFormulario();
         }
     });
@@ -193,8 +164,10 @@ function buscarMensajeId(id) {
 }
 
 function limpiarFormulario() {
-    $("#ide").val("");
-    $("#mensaje").val("");
+    $("#fecha_i").val("");
+    $("#fecha_e").val("");
+    $("#cabanaR").val("");
+    $("#clienteR").val("");
 }
 
 

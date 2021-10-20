@@ -5,12 +5,12 @@ function getDataCabana() {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            $("#cabana").empty();
+            $("#cabanaM").empty();
             let miLista = "";
             for (i = 0; i < respuesta.length; i++) {
                 miLista += "<option value=" + respuesta[i].id + ">" + respuesta[i].name + "</option>";
             }
-            $("#cabana").append(miLista);
+            $("#cabanaM").append(miLista);
         }
     });
 }
@@ -22,12 +22,12 @@ function getDataCliente() {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            $("#cliente").empty();
+            $("#clienteM").empty();
             let miLista = "";
             for (i = 0; i < respuesta.length; i++) {
-                miLista += "<option value=" + respuesta[i].id + ">" + respuesta[i].name + "</option>";
+                miLista += "<option value=" + respuesta[i].idClient + ">" + respuesta[i].name + "</option>";
             }
-            $("#cliente").append(miLista);
+            $("#clienteM").append(miLista);
         }
     });
 }
@@ -59,14 +59,15 @@ function consultarMensajeTodo() {
 
 function guardarMensaje() {
     var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
+        messageText: $("#mensajeM").val(),
+        client: { idClient: $('#clienteM').val() },
+        cabin: { id: $('#cabanaM').val() }
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://168.138.144.46:8080/api/Message/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -75,7 +76,7 @@ function guardarMensaje() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Mensaje Guardado');
             limpiarFormulario();
         }
     });
@@ -160,9 +161,7 @@ function buscarMensajeId(id) {
 }
 
 function limpiarFormulario() {
-    $("#ide").val("");
-    $("#mensaje").val("");
+    $("#cabanaM").val("");
+    $("#clienteM").val("");
+    $("#mensajeM").val("");
 }
-
-
-

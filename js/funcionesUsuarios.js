@@ -16,52 +16,22 @@ function consultarAdministradorTodo() {
                 $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].email+ "</td>"); 
                 $("#TablaResultadoAdministradores").append("</tr>");
             }
-
         }
     });
 }
 
 
-function consultarMensajeTodo() {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-
-        error: function (xhr, status) {
-            alert('ha sucedido un problema, ' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada, ' + xhr.status);
-        },
-        success: function (json) {
-            $("#TablaResultadoMensajes").empty();
-            $("#TablaResultadoMensajes").append("<tr>");
-            $("#TablaResultadoMensajes").append("<th>ID</th>");
-            $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
-            $("#TablaResultadoMensajes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoMensajes").append("<tr>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].messagetext + "</td>");
-                $("#TablaResultadoMensajes").append("</tr>");
-            }
-            console.log(json)
-        }
-    });
-}
-
-function guardarMensaje() {
+function guardarAdministrador() {
     var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
+        name: $('#nombreU').val(),
+        email: $("#correoU").val(),
+        password: $("#contrasenaU").val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://168.138.144.46:8080/api/Admin/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -70,7 +40,7 @@ function guardarMensaje() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Usuario Guardado');
             limpiarFormulario();
         }
     });
@@ -155,8 +125,9 @@ function buscarMensajeId(id) {
 }
 
 function limpiarFormulario() {
-    $("#ide").val("");
-    $("#mensaje").val("");
+    $("#nombreU").val("");
+    $("#correoU").val("");
+    $("#contrasenaU").val("");
 }
 
 

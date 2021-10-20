@@ -12,10 +12,8 @@ function getDataCategoria() {
             }
             $("#categoria").append(miLista);
         }
-
     });
 }
-
 
 function consultarCabanaTodo() {
     $.ajax({
@@ -28,9 +26,9 @@ function consultarCabanaTodo() {
             $("#TablaResultadoCabanas").append("<tr>");
             $("#TablaResultadoCabanas").append("<th>NOMBRE</th>");
             $("#TablaResultadoCabanas").append("<th>MARCA</th>");
-            $("#TablaResultadoCabanas").append("<th>CUARTOS</th>>");
-            $("#TablaResultadoCabanas").append("<th>CATEGORIA</th>>");
-            $("#TablaResultadoCabanas").append("<th>DESCRIPCIÓN</th>>");
+            $("#TablaResultadoCabanas").append("<th>CUARTOS</th>");
+            $("#TablaResultadoCabanas").append("<th>CATEGORIA</th>");
+            $("#TablaResultadoCabanas").append("<th>DESCRIPCIÓN</th>");
             $("#TablaResultadoCabanas").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoCabanas").append("<tr>");
@@ -48,17 +46,17 @@ function consultarCabanaTodo() {
 
 function guardarCabana() {
     var datos = {
-        id: $('#ide').val(),
+        name: $('#nombre').val(),
         brand: $('#marca').val(),
         rooms: $('#cuartos').val(),
-        category_id: $('#categoria').val(),
-        name: $('#nombre').val()
+        description: $('#descripcion').val(),
+        category: { id: $('#categoria').val() }
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
+        url: 'http://168.138.144.46:8080/api/Cabin/save',
         data: datosaEnviar,
         type: 'POST',
         dataType: 'json',
@@ -67,7 +65,7 @@ function guardarCabana() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Cabaña Guardada');
             limpiarFormulario();
         }
     });
@@ -161,11 +159,9 @@ function buscarCabanaId(id) {
 }
 
 function limpiarFormulario() {
-    $("#ide").val("");
+    $("#nombre").val("");
     $("#marca").val("");
     $("#cuartos").val("");
-    $("#categoria").val("");
-    $("#nombre").val("");
+    $("#descripcion").val("");
+    $("#categoria").val(1);
 }
-
-
