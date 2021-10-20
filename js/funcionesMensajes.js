@@ -161,7 +161,7 @@ function buscarMensajeId(id) {
 }
 
 function limpiarFormulario() {
-    $("#cabanaM").val("");
-    $("#clienteM").val("");
+    $("#cabanaM").val(1);
+    $("#clienteM").val(1);
     $("#mensajeM").val("");
 }

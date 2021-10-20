@@ -166,8 +166,8 @@ function buscarMensajeId(id) {
 function limpiarFormulario() {
     $("#fecha_i").val("");
     $("#fecha_e").val("");
-    $("#cabanaR").val("");
-    $("#clienteR").val("");
+    $("#cabanaR").val(1);
+    $("#clienteR").val(1);
 }
 
 

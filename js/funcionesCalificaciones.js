@@ -155,9 +155,9 @@ function buscarCabanaId(id) {
 }
 
 function limpiarFormulario() {
-    $("#puntuacion").val("");
+    $("#puntuacion").val(1);
     $("#mensajeC").val("");
-    $("#reservaC").val("");
+    $("#reservaC").val(1);
 }
 
 

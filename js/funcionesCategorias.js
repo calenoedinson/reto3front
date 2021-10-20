@@ -16,8 +16,8 @@ function consultarCategoriaTodo() {
                 $("#TablaResultadoCategorias").append("<td>" + respuesta[i].name + "</td>");
                 $("#TablaResultadoCategorias").append("<td>" + respuesta[i].description + "</td>");
                 let caba = " ";
-                for (j = 0; j <  respuesta[i].cabins.length; j++) {
-                    caba += " - " + respuesta[i].cabins[j].name
+                for (j = 0; j < respuesta[i].cabins.length; j++) {
+                    caba += j+1 + ". " + respuesta[i].cabins[j].name + "<br>"
                 }
                 $("#TablaResultadoCategorias").append("<td>" + caba + "</td>");
                 $("#TablaResultadoCategorias").append("</tr>");
