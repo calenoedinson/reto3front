@@ -52,6 +52,8 @@ function consultarReservaTodo() {
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.email  + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
                 $("#TablaResultadoReservas").append("</tr>");
             }
         }

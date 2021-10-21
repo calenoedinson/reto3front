@@ -28,10 +28,13 @@
                     <th>DESCRIPCIÓN:</th>
                     <td><input type="text" id="descripcion" maxlength="250" size="45"> </td>
                 </tr>
-                <tr>
-                    <td colspan="3">
-                        <input type="button" value="GUARDAR" onclick="guardarCategoria()">
-                    </td>
+                <td colspan="3">
+                    <input type="button" id="guardaCat" value="GUARDAR" onclick="guardarCategoria()">
+                </td>
+                <td colspan="3">
+                    <input type="button" id="actualizaCat" value="ACTUALIZAR" onclick="editarCategoria() "
+                        disabled="true">
+                </td>
                 </tr>
             </table>
         </fieldset>

@@ -50,6 +50,8 @@ function consultarMensajeTodo() {
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].messageText + "</td>");
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].client.name + "</td>");
+                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
                 $("#TablaResultadoMensajes").append("</tr>");
             }
 

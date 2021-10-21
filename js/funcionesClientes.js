@@ -15,7 +15,9 @@ function consultarClienteTodo() {
                 $("#TablaResultadoClientes").append("<tr>");
                 $("#TablaResultadoClientes").append("<td>" + respuesta[i].name + "</td>");
                 $("#TablaResultadoClientes").append("<td>" + respuesta[i].email + "</td>");
-                $("#TablaResultadoClientes").append("<td>" + respuesta[i].age + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + respuesta[i].age + "</td>"); 
+                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
                 $("#TablaResultadoClientes").append("</tr>");
             }
 

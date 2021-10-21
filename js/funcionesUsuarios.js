@@ -15,6 +15,8 @@ function consultarAdministradorTodo() {
                 $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].name + "</td>");
                 $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].email+ "</td>"); 
                 $("#TablaResultadoAdministradores").append("</tr>");
+                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
             }
         }
     });

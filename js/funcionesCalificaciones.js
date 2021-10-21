@@ -34,7 +34,9 @@ function consultarCalificacionTodo() {
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].id + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_reserva + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_mensaje + "</td>");
-                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");                
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");  
+                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");              
                 $("#TablaResultadoCalificaciones").append("</tr>");
             }
         }

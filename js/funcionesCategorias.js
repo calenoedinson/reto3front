@@ -19,7 +19,9 @@ function consultarCategoriaTodo() {
                 for (j = 0; j < respuesta[i].cabins.length; j++) {
                     caba += j+1 + ". " + respuesta[i].cabins[j].name + "<br>"
                 }
-                $("#TablaResultadoCategorias").append("<td>" + caba + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + caba + "</td>");  
+                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
                 $("#TablaResultadoCategorias").append("</tr>");
             }
 
