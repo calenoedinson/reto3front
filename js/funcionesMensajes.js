@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function getDataCabana() {
     $.ajax({
         type: 'GET',
@@ -43,15 +45,17 @@ function consultarMensajeTodo() {
             $("#TablaResultadoMensajes").append("<tr>");
             $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
             $("#TablaResultadoMensajes").append("<th>CABAÑA</th>");
-            $("#TablaResultadoMensajes").append("<th>CLIENTE</th>>");
+            $("#TablaResultadoMensajes").append("<th>CLIENTE</th>");        
+            $("#TablaResultadoMensajes").append("<th>EDITAR</th>");
+            $("#TablaResultadoMensajes").append("<th>ELIMINAR</th>");
             $("#TablaResultadoMensajes").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoMensajes").append("<tr>");
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].messageText + "</td>");
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoMensajes").append("<td>" + respuesta[i].client.name + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarMensaje(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoMensajes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarMensaje(" + respuesta[i].id + ")'>" + "</td>"); 
                 $("#TablaResultadoMensajes").append("</tr>");
             }
 

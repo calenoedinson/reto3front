@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function getDataCabana() {
     $.ajax({
         type: 'GET',
@@ -44,7 +46,9 @@ function consultarReservaTodo() {
             $("#TablaResultadoReservas").append("<th>N°</th>");
             $("#TablaResultadoReservas").append("<th>CABAÑA</th>");
             $("#TablaResultadoReservas").append("<th>CLIENTE</th>");
-            $("#TablaResultadoReservas").append("<th>EMAIL</th>");
+            $("#TablaResultadoReservas").append("<th>EMAIL</th>");        
+            $("#TablaResultadoReservas").append("<th>EDITAR</th>");
+            $("#TablaResultadoReservas").append("<th>ELIMINAR</th>");
             $("#TablaResultadoReservas").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoReservas").append("<tr>");
@@ -52,14 +56,13 @@ function consultarReservaTodo() {
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.email  + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarReserva(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarReserva(" + respuesta[i].id + ")'>" + "</td>"); 
                 $("#TablaResultadoReservas").append("</tr>");
             }
         }
     });
 }
-
 
 function guardarReserva() {
     var datos = {

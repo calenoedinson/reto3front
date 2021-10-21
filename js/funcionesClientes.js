@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function consultarClienteTodo() {
     $.ajax({
         url: 'http://168.138.144.46:8080/api/Client/all',
@@ -9,15 +11,17 @@ function consultarClienteTodo() {
             $("#TablaResultadoClientes").append("<tr>");
             $("#TablaResultadoClientes").append("<th>NOMBRE</th>");
             $("#TablaResultadoClientes").append("<th>CORREO</th>");
-            $("#TablaResultadoClientes").append("<th>EDAD</th>>");
+            $("#TablaResultadoClientes").append("<th>EDAD</th>");          
+            $("#TablaResultadoClientes").append("<th>EDITAR</th>");
+            $("#TablaResultadoClientes").append("<th>ELIMINAR</th>");
             $("#TablaResultadoClientes").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoClientes").append("<tr>");
                 $("#TablaResultadoClientes").append("<td>" + respuesta[i].name + "</td>");
                 $("#TablaResultadoClientes").append("<td>" + respuesta[i].email + "</td>");
                 $("#TablaResultadoClientes").append("<td>" + respuesta[i].age + "</td>"); 
-                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarCliente(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoClientes").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarCliente(" + respuesta[i].id + ")'>" + "</td>");   
                 $("#TablaResultadoClientes").append("</tr>");
             }
 

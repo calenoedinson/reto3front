@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function consultarCategoriaTodo() {
     $.ajax({
         url: 'http://168.138.144.46:8080/api/Category/all',
@@ -9,7 +11,9 @@ function consultarCategoriaTodo() {
             $("#TablaResultadoCategorias").append("<tr>");
             $("#TablaResultadoCategorias").append("<th>NOMBRE</th>");
             $("#TablaResultadoCategorias").append("<th>DESCRIPCIÓN</th>");
-            $("#TablaResultadoCategorias").append("<th>CABAÑAS</th>");
+            $("#TablaResultadoCategorias").append("<th>CABAÑAS</th>");           
+            $("#TablaResultadoCategorias").append("<th>EDITAR</th>");
+            $("#TablaResultadoCategorias").append("<th>ELIMINAR</th>");
             $("#TablaResultadoCategorias").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoCategorias").append("<tr>");
@@ -19,9 +23,9 @@ function consultarCategoriaTodo() {
                 for (j = 0; j < respuesta[i].cabins.length; j++) {
                     caba += j+1 + ". " + respuesta[i].cabins[j].name + "<br>"
                 }
-                $("#TablaResultadoCategorias").append("<td>" + caba + "</td>");  
-                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + caba + "</td>"); 
+                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarCategoria(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoCategorias").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarCategoria(" + respuesta[i].id + ")'>" + "</td>");
                 $("#TablaResultadoCategorias").append("</tr>");
             }
 

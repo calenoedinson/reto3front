@@ -1,4 +1,3 @@
-var actualizarDato = "Inactivo";
 var actualizarVar = 0;
 
 function getDataCategoria() {

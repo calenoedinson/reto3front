@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function getDataReserva() {
     $.ajax({
         type: 'GET',
@@ -27,22 +29,23 @@ function consultarCalificacionTodo() {
             $("#TablaResultadoCalificaciones").append("<th>N°</th>");
             $("#TablaResultadoCalificaciones").append("<th>RESERVA</th>");
             $("#TablaResultadoCalificaciones").append("<th>MENSAJE</th>");
-            $("#TablaResultadoCalificaciones").append("<th>PUNTUACIÓN</th>");
+            $("#TablaResultadoCalificaciones").append("<th>PUNTUACIÓN</th>");            
+            $("#TablaResultadoCalificaciones").append("<th>EDITAR</th>");
+            $("#TablaResultadoCalificaciones").append("<th>ELIMINAR</th>");
             $("#TablaResultadoCalificaciones").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoCalificaciones").append("<tr>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].id + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_reserva + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_mensaje + "</td>");
-                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");  
-                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");              
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarCalificacion(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarCalificacion(" + respuesta[i].id + ")'>" + "</td>");              
                 $("#TablaResultadoCalificaciones").append("</tr>");
             }
         }
     });
 }
-
 
 function guardarCalificacion() {
     var datos = {
@@ -69,19 +72,35 @@ function guardarCalificacion() {
     });
 }
 
-function editarCabana() {
+function traeEditarCalificacion(ide) {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Score/' + ide,
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            actualizarVar = respuesta.id;
+            $("#puntuacion").val(respuesta.puntuacion);
+            $("#mensajeC").val(respuesta.vr_mensaje);
+            $("#reservaC").val(respuesta.vr_reserva);
+            $("#guardaCal").prop('disabled', true);
+            $("#actualizaCal").prop('disabled', false);
+        }
+    });
+}
+
+function editarCalificacion() {
     var datos = {
-        id: $('#ide').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
-        category_id: $('#categoria').val(),
-        name: $('#nombre').val()
+        id: actualizarVar,
+        puntuacion: $('#puntuacion').val(),
+        vr_mensaje: $('#mensajeC').val(),
+        vr_reserva: $('#reservaC').val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
+        url: 'http://168.138.144.46:8080/api/Score/update',
         data: datosaEnviar,
         type: 'PUT',
         dataType: 'json',
@@ -90,68 +109,22 @@ function editarCabana() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Calificacion Actualizada');
+            consultarCalificacionTodo();
             limpiarFormulario();
         }
     });
 }
 
-function eliminarCabana() {
-    var datos = {
-        id: $("#ide").val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
+function eliminarCalificacion(ide) {
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
-        data: datosaEnviar,
+        url: 'http://168.138.144.46:8080/api/Cabin/' + ide,
         type: 'DELETE',
         dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
-
-function buscarCabanaId(id) {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin/' + id.val(),
-        dataType: 'json',
-        type: 'GET',
-        success: function (json) {
-            $("#TablaResultadoCabanas").empty();
-            $("#TablaResultadoCabanas").append("<tr>");
-            $("#TablaResultadoCabanas").append("<th>ID</th>");
-            $("#TablaResultadoCabanas").append("<th>MARCA</th>");
-            $("#TablaResultadoCabanas").append("<th>CUARTOS</th>");
-            $("#TablaResultadoCabanas").append("<th>CATEGORIA</th>>");
-            $("#TablaResultadoCabanas").append("<th>NOMBRE</th>>");
-            $("#TablaResultadoCabanas").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoCabanas").append("<tr>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].brand + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].rooms + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].category_id + "</td>");
-                $("#TablaResultadoCabanas").append("<td>" + json.items[i].name + "</td>");
-                $("#TablaResultadoCabanas").append("</tr>");
-            }
-            console.log(json)
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+        success: function (respuesta) {
+            console.log(respuesta)
+            alert('Cabaña Eliminada');
+            consultarCalificacionTodo();
         }
     });
 }
@@ -159,7 +132,9 @@ function buscarCabanaId(id) {
 function limpiarFormulario() {
     $("#puntuacion").val(1);
     $("#mensajeC").val("");
-    $("#reservaC").val(1);
+    $("#reservaC").val(1);    
+    $("#guardaCal").prop('disabled', false);
+    $("#actualizaCal").prop('disabled', true);
 }
 
 

@@ -1,3 +1,5 @@
+var actualizarVar = 0;
+
 function consultarAdministradorTodo() {
     $.ajax({
         url: 'http://168.138.144.46:8080/api/Admin/all',
@@ -8,20 +10,21 @@ function consultarAdministradorTodo() {
             $("#TablaResultadoAdministradores").empty();
             $("#TablaResultadoAdministradores").append("<tr>");
             $("#TablaResultadoAdministradores").append("<th>NOMBRE</th>");
-            $("#TablaResultadoAdministradores").append("<th>EMAIL</th>");
+            $("#TablaResultadoAdministradores").append("<th>EMAIL</th>");        
+            $("#TablaResultadoAdministradores").append("<th>EDITAR</th>");
+            $("#TablaResultadoAdministradores").append("<th>ELIMINAR</th>");
             $("#TablaResultadoAdministradores").append("</tr>");
             for (i = 0; i < respuesta.length; i++) {
                 $("#TablaResultadoAdministradores").append("<tr>");
                 $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].name + "</td>");
                 $("#TablaResultadoAdministradores").append("<td>" + respuesta[i].email+ "</td>"); 
+                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarAdministrador(" + respuesta[i].id + ")'>" + "</td>");
+                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarAdministrador(" + respuesta[i].id + ")'>" + "</td>"); 
                 $("#TablaResultadoAdministradores").append("</tr>");
-                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='EDITAR' onclick='guardarCabana()'>" + "</td>");
-                $("#TablaResultadoAdministradores").append("<td>" + "<input type='button' value='ELIMINAR' onclick='guardarCabana()'>" + "</td>");
             }
         }
     });
 }
-
 
 function guardarAdministrador() {
     var datos = {
