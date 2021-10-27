@@ -56,8 +56,8 @@ function consultarReservaTodo() {
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].cabin.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.name + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].client.email  + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarReserva(" + respuesta[i].id + ")'>" + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarReserva(" + respuesta[i].id + ")'>" + "</td>"); 
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarReserva(" + respuesta[i].idReservation + ")'>" + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarReserva(" + respuesta[i].idReservation + ")'>" + "</td>"); 
                 $("#TablaResultadoReservas").append("</tr>");
             }
         }
@@ -90,16 +90,38 @@ function guardarReserva() {
     });
 }
 
-function editarMensaje() {
+function traeEditarReserva(ide) {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Reservation/' + ide,
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            actualizarVar = respuesta.idReservation;
+            $("#cabanaR").val(respuesta.cabin.id);
+            $("#clienteR").val(respuesta.client.idClient);
+            $("#fecha_i").val(respuesta.startDate);
+            $("#fecha_e").val(respuesta.devolutionDate);
+            $("#guardaRes").prop('disabled', true);
+            $("#actualizaRes").prop('disabled', false);
+        }
+    });
+}
+
+function editarReserva() {
     var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
+        id: actualizarVar,
+        name: $('#nombre').val(),
+        brand: $('#marca').val(),
+        rooms: $('#cuartos').val(),
+        description: $('#descripcion').val(),
+        category: { id: $('#categoria').val() }
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://168.138.144.46:8080/api/Cabin/update',
         data: datosaEnviar,
         type: 'PUT',
         dataType: 'json',
@@ -108,72 +130,38 @@ function editarMensaje() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Cabaña Actualizada');
+            consultarReservaTodo();
             limpiarFormulario();
         }
     });
 }
 
-function eliminarMensaje() {
-    var datos = {
-        id: $("#ide").val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
+function eliminarReserva(ide) {
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        data: datosaEnviar,
+        url: 'http://168.138.144.46:8080/api/Cabin/' + ide,
         type: 'DELETE',
         dataType: 'json',
-        contentType: 'application/json',
         success: function (response) {
             console.log(response);
         },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Cabaña Eliminada');
+            consultarCabanaTodo();
             limpiarFormulario();
-        }
-    });
-}
-
-function buscarMensajeId(id) {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message/' + id.val(),
-        dataType: 'json',
-        type: 'GET',
-        success: function (json) {
-            $("#TablaResultadoMensajes").empty();
-            $("#TablaResultadoMensajes").append("<tr>");
-            $("#TablaResultadoMensajes").append("<th>ID</th>");
-            $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
-            $("#TablaResultadoMensajes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoMensajes").append("<tr>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].messagetext + "</td>");
-                $("#TablaResultadoMensajes").append("</tr>");
-            }
-            console.log(json)
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
         }
     });
 }
 
 function limpiarFormulario() {
-    $("#fecha_i").val("");
-    $("#fecha_e").val("");
-    $("#cabanaR").val(1);
-    $("#clienteR").val(1);
+    $("#nombre").val("");
+    $("#marca").val("");
+    $("#cuartos").val("");
+    $("#descripcion").val("");
+    $("#categoria").val(1);
+    $("#guardaCab").prop('disabled', false);
+    $("#actualizaCab").prop('disabled', true);
 }
-
 
 
