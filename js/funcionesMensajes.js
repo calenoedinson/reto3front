@@ -103,7 +103,7 @@ function traeEditarMensaje(ide) {
             actualizarVar = respuesta.id; //necesita verificar ID desde NetBeans
             $("#cabanaM").val(respuesta.cabin.id);
             $("#clienteM").val(respuesta.client.idClient);
-            $("#cmensajeM").val(respuesta.messageText);
+            $("#mensajeM").val(respuesta.messageText);
             //$("#descripcion").val(respuesta.description);// se elimina
             //$("#categoria").val(respuesta.category.id);// se elimina
             $("#guardaMen").prop('disabled', true);
