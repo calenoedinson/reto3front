@@ -80,6 +80,7 @@ function editarCliente() {
         name: $('#nombre').val(),
         email: $('#correo').val(),
         age: $('#edad').val(),
+        password: $('#contrasena').val(),
         description: $('#descripcion').val(),
         category: { idClient: $('#categoria').val() }
     }
