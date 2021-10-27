@@ -126,14 +126,18 @@ function editarCabana() {
 }
 
 function eliminarCabana(ide) {
+
     $.ajax({
         url: 'http://168.138.144.46:8080/api/Cabin/' + ide,
         type: 'DELETE',
         dataType: 'json',
-        success: function (respuesta) {
-            console.log(respuesta)
+        success: function (response) {
+            console.log(response);
+        },
+        complete: function (xhr, status) {
             alert('Cabaña Eliminada');
             consultarCabanaTodo();
+            limpiarFormulario();
         }
     });
 }
