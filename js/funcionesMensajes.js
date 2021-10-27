@@ -100,32 +100,28 @@ function traeEditarMensaje(ide) {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            actualizarVar = respuesta.id; //necesita verificar ID desde NetBeans
+            actualizarVar = respuesta.idMessage;
             $("#cabanaM").val(respuesta.cabin.id);
             $("#clienteM").val(respuesta.client.idClient);
             $("#mensajeM").val(respuesta.messageText);
-            //$("#descripcion").val(respuesta.description);// se elimina
-            //$("#categoria").val(respuesta.category.id);// se elimina
             $("#guardaMen").prop('disabled', true);
             $("#actualizaMen").prop('disabled', false);
         }
     });
 }//Terminado.
 
-/*function editarMensaje() {
+function editarMensaje() {
     var datos = {
-        id: actualizarVar,
-        name: $('#nombre').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
-        description: $('#descripcion').val(),
-        category: { id: $('#categoria').val() }
+        idMessage: actualizarVar,
+        cabin: {id:$('#cabanaM').val() },
+        client: {idClient:$('#clienteM').val() },
+        messageText: $("#mensajeM").val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'http://168.138.144.46:8080/api/Cabin/update',
+        url: 'http://168.138.144.46:8080/api/Message/update',
         data: datosaEnviar,
         type: 'PUT',
         dataType: 'json',
@@ -134,37 +130,25 @@ function traeEditarMensaje(ide) {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Cabaña Actualizada');
-            consultarCabanaTodo();
+            alert('Mensaje Actualizado');
+            consultarMensajeTodo(); //editar
             limpiarFormulario();
         }
     });
 }
-*/
+
 function eliminarMensaje(ide) {
     $.ajax({
-        url: 'http://168.138.144.46:8080/api/Cabin/' + ide,
+        url: 'http://168.138.144.46:8080/api/Message/' + ide,
         type: 'DELETE',
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            alert('Cabaña Eliminada');
-            consultarCabanaTodo();
+            alert('Mensaje  Eliminado');
+            consultarMensajeTodo();
         }
     });
 }
-
-/*function limpiarFormulario() {
-    $("#nombre").val("");
-    $("#marca").val("");
-    $("#cuartos").val("");
-    $("#descripcion").val("");
-    $("#categoria").val(1);
-    $("#guardaCab").prop('disabled', false);
-    $("#actualizaCab").prop('disabled', true);
-}
-*/
-
 
 function guardarMensaje() {
     var datos = {
@@ -191,87 +175,14 @@ function guardarMensaje() {
     });
 }
 
-function editarMensaje() {
-    var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        data: datosaEnviar,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
-
-function eliminarMensaje() {
-    var datos = {
-        id: $("#ide").val()
-    }
 
 
 
 
 
-    var datosaEnviar = JSON.stringify(datos);
 
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        data: datosaEnviar,
-        type: 'DELETE',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
 
-function buscarMensajeId(id) {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message/' + id.val(),
-        dataType: 'json',
-        type: 'GET',
-        success: function (json) {
-            $("#TablaResultadoMensajes").empty();
-            $("#TablaResultadoMensajes").append("<tr>");
-            $("#TablaResultadoMensajes").append("<th>ID</th>");
-            $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
-            $("#TablaResultadoMensajes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoMensajes").append("<tr>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].messagetext + "</td>");
-                $("#TablaResultadoMensajes").append("</tr>");
-            }
-            console.log(json)
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
-        }
-    });
-}
+
 
 function limpiarFormulario() {
     $("#cabanaM").val(1);
