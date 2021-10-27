@@ -76,12 +76,12 @@ function traeEditarCliente(ide) {
 
 function editarCliente() {
     var datos = {
-        id: actualizarVar,
+        idClient: actualizarVar,
         name: $('#nombre').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
+        email: $('#correo').val(),
+        age: $('#edad').val(),
         description: $('#descripcion').val(),
-        category: { id: $('#categoria').val() }
+        category: { idClient: $('#categoria').val() }
     }
 
     var datosaEnviar = JSON.stringify(datos);
@@ -96,7 +96,7 @@ function editarCliente() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Cabaña Actualizada');
+            alert('Cliente Actualizado');
             consultarClienteTodo();
             limpiarFormulario();
         }
@@ -110,7 +110,7 @@ function eliminarCliente(ide) {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            alert('Cabaña Eliminada');
+            alert('CLiente Eliminado');
             consultarClienteTodo();
         }
     });
@@ -118,10 +118,9 @@ function eliminarCliente(ide) {
 
 function limpiarFormulario() {
     $("#nombre").val("");
-    $("#marca").val("");
-    $("#cuartos").val("");
-    $("#descripcion").val("");
-    $("#categoria").val(1);
-    $("#guardaCab").prop('disabled', false);
-    $("#actualizaCab").prop('disabled', true);
+    $("#correo").val("");
+    $("#edad").val("");
+    $("#contrasena").val("");
+    $("#guardaCli").prop('disabled', false);
+    $("#actualizaCli").prop('disabled', true);
 }
