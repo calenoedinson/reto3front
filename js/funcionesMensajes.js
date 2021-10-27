@@ -63,36 +63,6 @@ function consultarMensajeTodo() {
     });
 }
 
-
-/*function guardarMensaje() {
-    var datos = {
-        name: $('#nombre').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
-        description: $('#descripcion').val(),
-        category: { id: $('#categoria').val() }
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Cabin/save',
-        data: datosaEnviar,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Cabaña Guardada');
-            limpiarFormulario();
-            consultarCabanaTodo();
-        }
-    });
-}
-*/
-
 function traeEditarMensaje(ide) {
     $.ajax({
         url: 'http://168.138.144.46:8080/api/Message/' + ide,
@@ -108,7 +78,7 @@ function traeEditarMensaje(ide) {
             $("#actualizaMen").prop('disabled', false);
         }
     });
-}//Terminado.
+}
 
 function editarMensaje() {
     var datos = {
@@ -174,15 +144,6 @@ function guardarMensaje() {
         }
     });
 }
-
-
-
-
-
-
-
-
-
 
 function limpiarFormulario() {
     $("#cabanaM").val(1);
