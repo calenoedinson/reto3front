@@ -29,7 +29,7 @@ function consultarCalificacionTodo() {
             $("#TablaResultadoCalificaciones").append("<th>N°</th>");
             $("#TablaResultadoCalificaciones").append("<th>RESERVA</th>");
             $("#TablaResultadoCalificaciones").append("<th>MENSAJE</th>");
-            $("#TablaResultadoCalificaciones").append("<th>PUNTUACIÓN</th>");            
+            $("#TablaResultadoCalificaciones").append("<th>PUNTUACIÓN</th>");
             $("#TablaResultadoCalificaciones").append("<th>EDITAR</th>");
             $("#TablaResultadoCalificaciones").append("<th>ELIMINAR</th>");
             $("#TablaResultadoCalificaciones").append("</tr>");
@@ -38,9 +38,9 @@ function consultarCalificacionTodo() {
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].id + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_reserva + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].vr_mensaje + "</td>");
-                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion+ "</td>");
+                $("#TablaResultadoCalificaciones").append("<td>" + respuesta[i].puntuacion + "</td>");
                 $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarCalificacion(" + respuesta[i].id + ")'>" + "</td>");
-                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarCalificacion(" + respuesta[i].id + ")'>" + "</td>");              
+                $("#TablaResultadoCalificaciones").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarCalificacion(" + respuesta[i].id + ")'>" + "</td>");
                 $("#TablaResultadoCalificaciones").append("</tr>");
             }
         }
@@ -48,28 +48,32 @@ function consultarCalificacionTodo() {
 }
 
 function guardarCalificacion() {
-    var datos = {
-        puntuacion: $('#puntuacion').val(),
-        vr_mensaje: $('#mensajeC').val(),
-        vr_reserva: $('#reservaC').val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Score/save',
-        data: datosaEnviar,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Puntaje Guardado');
-            limpiarFormulario();
+    if ($('#mensajeC').val().trim() == "") {
+        alert('No hay mensaje, por favor verifique');
+    } else {
+        var datos = {
+            puntuacion: $('#puntuacion').val(),
+            vr_mensaje: $('#mensajeC').val(),
+            vr_reserva: $('#reservaC').val()
         }
-    });
+
+        var datosaEnviar = JSON.stringify(datos);
+
+        $.ajax({
+            url: 'http://168.138.144.46:8080/api/Score/save',
+            data: datosaEnviar,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            complete: function (xhr, status) {
+                alert('Puntaje Guardado');
+                limpiarFormulario();
+            }
+        });
+    }
 }
 
 function traeEditarCalificacion(ide) {
@@ -90,30 +94,34 @@ function traeEditarCalificacion(ide) {
 }
 
 function editarCalificacion() {
-    var datos = {
-        id: actualizarVar,
-        puntuacion: $('#puntuacion').val(),
-        vr_mensaje: $('#mensajeC').val(),
-        vr_reserva: $('#reservaC').val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Score/update',
-        data: datosaEnviar,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Calificacion Actualizada');
-            consultarCalificacionTodo();
-            limpiarFormulario();
+    if ($('#mensajeC').val().trim() == "") {
+        alert('No hay mensaje, por favor verifique');
+    } else {
+        var datos = {
+            id: actualizarVar,
+            puntuacion: $('#puntuacion').val(),
+            vr_mensaje: $('#mensajeC').val(),
+            vr_reserva: $('#reservaC').val()
         }
-    });
+
+        var datosaEnviar = JSON.stringify(datos);
+
+        $.ajax({
+            url: 'http://168.138.144.46:8080/api/Score/update',
+            data: datosaEnviar,
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            complete: function (xhr, status) {
+                alert('Calificacion Actualizada');
+                consultarCalificacionTodo();
+                limpiarFormulario();
+            }
+        });
+    }
 }
 
 function eliminarCalificacion(ide) {
@@ -132,7 +140,7 @@ function eliminarCalificacion(ide) {
 function limpiarFormulario() {
     $("#puntuacion").val(1);
     $("#mensajeC").val("");
-    $("#reservaC").val(1);    
+    $("#reservaC").val();
     $("#guardaCal").prop('disabled', false);
     $("#actualizaCal").prop('disabled', true);
 }

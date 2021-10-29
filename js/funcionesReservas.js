@@ -77,29 +77,33 @@ function consultarReservaTodo() {
 }
 
 function guardarReserva() {
-    var datos = {
-        startDate: $('#fecha_i').val(),
-        devolutionDate: $("#fecha_e").val(),
-        cabin: { id: $('#cabanaR').val() },
-        client: { idClient: $('#clienteR').val() }
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/save',
-        data: datosaEnviar,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Reserva guardada');
-            limpiarFormulario();
+    if ($('#fecha_i').val().trim() == "" || $('#fecha_e').val().trim() == "" || $('#fecha_i').val() > $('#fecha_e').val()) {
+        alert('Rango de fechas de reserva incorrecto, por favor verifique');
+    } else {
+        var datos = {
+            startDate: $('#fecha_i').val(),
+            devolutionDate: $("#fecha_e").val(),
+            cabin: { id: $('#cabanaR').val() },
+            client: { idClient: $('#clienteR').val() }
         }
-    });
+
+        var datosaEnviar = JSON.stringify(datos);
+
+        $.ajax({
+            url: 'http://168.138.144.46:8080/api/Reservation/save',
+            data: datosaEnviar,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            complete: function (xhr, status) {
+                alert('Reserva guardada');
+                limpiarFormulario();
+            }
+        });
+    }
 }
 
 function traeEditarReserva(ide) {
@@ -127,31 +131,35 @@ function traeEditarReserva(ide) {
 }
 
 function editarReserva() {
-    var datos = {
-        idReservation: actualizarVar,
-        startDate: $('#fecha_i').val(),
-        devolutionDate: $("#fecha_e").val(),
-        cabin: { id: $('#cabanaR').val() },
-        client: { idClient: $('#clienteR').val() }
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/update',
-        data: datosaEnviar,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Cabaña Actualizada');
-            consultarReservaTodo();
-            limpiarFormulario();
+    if ($('#fecha_i').val().trim() == "" || $('#fecha_e').val().trim() == "" || $('#fecha_i').val() > $('#fecha_e').val()) {
+        alert('Rango de fechas de reserva incorrecto, por favor verifique');
+    } else {
+        var datos = {
+            idReservation: actualizarVar,
+            startDate: $('#fecha_i').val(),
+            devolutionDate: $("#fecha_e").val(),
+            cabin: { id: $('#cabanaR').val() },
+            client: { idClient: $('#clienteR').val() }
         }
-    });
+
+        var datosaEnviar = JSON.stringify(datos);
+
+        $.ajax({
+            url: 'http://168.138.144.46:8080/api/Reservation/update',
+            data: datosaEnviar,
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            complete: function (xhr, status) {
+                alert('Cabaña Actualizada');
+                consultarReservaTodo();
+                limpiarFormulario();
+            }
+        });
+    }
 }
 
 function eliminarReserva(ide) {
@@ -165,7 +173,7 @@ function eliminarReserva(ide) {
         },
         complete: function (xhr, status) {
             alert('Reserva eliminada');
-            consultarCabanaTodo();
+            consultarReservaTodo();
             limpiarFormulario();
         }
     });
@@ -174,8 +182,8 @@ function eliminarReserva(ide) {
 function limpiarFormulario() {
     $("#fecha_i").val("");
     $("#fecha_e").val("");
-    $("#cabanaR").val(1);
-    $("#clienteR").val(1);
+    $("#cabanaR").val();
+    $("#clienteR").val();
     $("#guardaRes").prop('disabled', false);
     $("#actualizaRes").prop('disabled', true);
 }
