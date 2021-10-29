@@ -164,7 +164,7 @@ function eliminarReserva(ide) {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Cabaña Eliminada');
+            alert('Reserva eliminada');
             consultarCabanaTodo();
             limpiarFormulario();
         }

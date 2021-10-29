@@ -80,9 +80,7 @@ function editarCliente() {
         name: $('#nombre').val(),
         email: $('#correo').val(),
         age: $('#edad').val(),
-        password: $('#contrasena').val(),
-        description: $('#descripcion').val(),
-        category: { idClient: $('#categoria').val() }
+        password: $('#contrasena').val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
@@ -111,7 +109,7 @@ function eliminarCliente(ide) {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            alert('CLiente Eliminado');
+            alert('Cliente Eliminado');
             consultarClienteTodo();
         }
     });

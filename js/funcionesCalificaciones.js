@@ -118,12 +118,12 @@ function editarCalificacion() {
 
 function eliminarCalificacion(ide) {
     $.ajax({
-        url: 'http://168.138.144.46:8080/api/Cabin/' + ide,
+        url: 'http://168.138.144.46:8080/api/Score/' + ide,
         type: 'DELETE',
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            alert('Cabaña Eliminada');
+            alert('Calificación Eliminada');
             consultarCalificacionTodo();
         }
     });
