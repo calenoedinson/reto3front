@@ -57,19 +57,33 @@ function guardarCategoria() {
     });
 }
 
+function traeEditarCategoria(ide) {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Category/' + ide,
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            actualizarVar = respuesta.id;
+            $("#nombre").val(respuesta.name);
+            $("#descripcion").val(respuesta.description);
+            $("#guardaCat").prop('disabled', true);
+            $("#actualizaCat").prop('disabled', false);
+        }
+    });
+}
+
 function editarCategoria() {
     var datos = {
-        id: $('#ide').val(),
-        brand: $('#marca').val(),
-        rooms: $('#cuartos').val(),
-        category_id: $('#categoria').val(),
-        name: $('#nombre').val()
+        id: actualizarVar,
+        name: $('#nombre').val(),
+        description: $('#descripcion').val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
+        url: 'http://168.138.144.46:8080/api/Category/update',
         data: datosaEnviar,
         type: 'PUT',
         dataType: 'json',
@@ -78,75 +92,37 @@ function editarCategoria() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Categoría Actualizada');
+            consultarCategoriaTodo();
             limpiarFormulario();
         }
     });
 }
 
-function eliminarCategoria() {
-    var datos = {
-        id: $("#ide").val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
+function eliminarCategoria(ide) {
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin',
-        data: datosaEnviar,
+        url: 'http://168.138.144.46:8080/api/Category/' + ide,
         type: 'DELETE',
         dataType: 'json',
-        contentType: 'application/json',
         success: function (response) {
             console.log(response);
         },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Cabaña Eliminada');
+            consultarCategoriaTodo();
             limpiarFormulario();
-        }
-    });
-}
-
-function buscarCategoriaId(id) {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/cabin/cabin/' + id.val(),
-        dataType: 'json',
-        type: 'GET',
-        success: function (json) {
-            $("#TablaResultadoCategorias").empty();
-            $("#TablaResultadoCategorias").append("<tr>");
-            $("#TablaResultadoCategorias").append("<th>ID</th>");
-            $("#TablaResultadoCategorias").append("<th>MARCA</th>");
-            $("#TablaResultadoCategorias").append("<th>CUARTOS</th>");
-            $("#TablaResultadoCategorias").append("<th>CATEGORIA</th>>");
-            $("#TablaResultadoCategorias").append("<th>NOMBRE</th>>");
-            $("#TablaResultadoCategorias").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoCategorias").append("<tr>");
-                $("#TablaResultadoCategorias").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoCategorias").append("<td>" + json.items[i].brand + "</td>");
-                $("#TablaResultadoCategorias").append("<td>" + json.items[i].rooms + "</td>");
-                $("#TablaResultadoCategorias").append("<td>" + json.items[i].category_id + "</td>");
-                $("#TablaResultadoCategorias").append("<td>" + json.items[i].name + "</td>");
-                $("#TablaResultadoCategorias").append("</tr>");
-            }
-            console.log(json)
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
         }
     });
 }
 
 function limpiarFormulario() {
     $("#nombre").val("");
+    $("#marca").val("");
+    $("#cuartos").val("");
     $("#descripcion").val("");
+    $("#categoria").val(1);
+    $("#guardaCab").prop('disabled', false);
+    $("#actualizaCab").prop('disabled', true);
 }
-
 
