@@ -51,16 +51,35 @@ function guardarAdministrador() {
     });
 }
 
-function editarMensaje() {
+function traeEditarAdministrador(ide) {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Admin/' + ide,
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            actualizarVar = respuesta.id;
+            $("#nombreU").val(respuesta.name);
+            $("#correoU").val(respuesta.email);
+            $("#contrasenaU").val(respuesta.password);
+            $("#guardaAdm").prop('disabled', true);
+            $("#actualizaAdm").prop('disabled', false);
+        }
+    });
+}
+
+function editarAdministrador() {
     var datos = {
-        id: $('#ide').val(),
-        messagetext: $("#mensaje").val()
+        id: actualizarVar,
+        name: $('#nombreU').val(),
+        email: $("#correoU").val(),
+        password: $("#contrasenaU").val()
     }
 
     var datosaEnviar = JSON.stringify(datos);
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
+        url: 'http://168.138.144.46:8080/api/Admin/update',
         data: datosaEnviar,
         type: 'PUT',
         dataType: 'json',
@@ -69,62 +88,26 @@ function editarMensaje() {
             console.log(response);
         },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Administrador Actualizado');
+            consultarAdministradorTodo();
             limpiarFormulario();
         }
     });
 }
 
-function eliminarMensaje() {
-    var datos = {
-        id: $("#ide").val()
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
+function eliminarAdministrador(ide) {
 
     $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message',
-        data: datosaEnviar,
+        url: 'http://168.138.144.46:8080/api/Admin/' + ide,
         type: 'DELETE',
         dataType: 'json',
-        contentType: 'application/json',
         success: function (response) {
             console.log(response);
         },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
         complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
+            alert('Administrador Eliminado');
+            consultarAdministradorTodo();
             limpiarFormulario();
-        }
-    });
-}
-
-function buscarMensajeId(id) {
-    $.ajax({
-        url: 'https://g54ed9b48eae3a2-edinsondb.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message/' + id.val(),
-        dataType: 'json',
-        type: 'GET',
-        success: function (json) {
-            $("#TablaResultadoMensajes").empty();
-            $("#TablaResultadoMensajes").append("<tr>");
-            $("#TablaResultadoMensajes").append("<th>ID</th>");
-            $("#TablaResultadoMensajes").append("<th>MENSAJE</th>");
-            $("#TablaResultadoMensajes").append("</tr>");
-            for (i = 0; i < json.items.length; i++) {
-                $("#TablaResultadoMensajes").append("<tr>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].id + "</td>");
-                $("#TablaResultadoMensajes").append("<td>" + json.items[i].messagetext + "</td>");
-                $("#TablaResultadoMensajes").append("</tr>");
-            }
-            console.log(json)
-        },
-        error: function (xhr, status) {
-            alert('ha sucedido un problema' + xhr.status);
-        },
-        complete: function (xhr, status) {
-            alert('Petición realizada ' + xhr.status);
         }
     });
 }
