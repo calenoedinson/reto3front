@@ -13,21 +13,18 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-    <h1>MinTic 2021</h1>
-    <div class="container unauthenticated">
-        Para iniciar sesión con GitHub!
-        <a href="http://168.138.144.46:8080/oauth2/authorization/github">Haz click aquí</a>
-    </div>
-    <div class="container unauthenticated" style="display:none">
-        Autenticado como: <span id="user"></span>
-    </div>
-</body>
+<div class="container unauthenticated">
+    With GitHub: <a href="http://localhost:8080/oauth2/authorization/github">click here</a>
+</div>
+<div class="container authenticated" style="display:none">
+    Logged in as: <span id="user"></span>
+</div>
+
 <script type="text/javascript">
-    $.get("/user", function (data) {
+    $.get("/user", function(data) {
         $("#user").html(data.name);
-        $(".unauthenticated").hide();
-        $(".authenticated").show();
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
     });
 </script>
 
