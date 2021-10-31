@@ -151,5 +151,17 @@ function limpiarFormulario() {
     $("#actualizaAdm").prop('disabled', true);
 }
 
+function ingresoGitHub() {
+    $.ajax({
+        url: 'http://168.138.144.46:8080/user',
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            console.log(respuesta)
+            alert('Usuario ' + respuesta.name+ 'ingresó correctamente ');
+        }
+    });
+}
+
 
 

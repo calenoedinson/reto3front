@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width" />    
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://168.138.144.46/:8080/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="http://168.138.144.46/:8080/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://168.138.144.46/:8080/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -48,7 +48,7 @@
                 </tr>
             </table>
         </fieldset>
-        <a href="http://168.138.144.46:8080/oauth2/authorization/github" title="GitHub">Log GitHub</a>
+        <a href="http://168.138.144.46:8080/oauth2/authorization/github" title="GitHub" onclick="ingresoGitHub() ">Ingresar con usuario GitHub</a>
 
         <h2> CONSULTA DE ADMINISTRADORES</h2>
         <fieldset style="width: 30%">
@@ -57,7 +57,7 @@
                 <tr>
                 <tr>
                     <td colspan="3">
-                        <input type="button" value="CONSULTAR" onclick="consultarAdministradorTodo()">
+                        <input type="button" value="CONSULTAR" onclick="consultarAdministradorTodo() ,ingresoGitHub()">
                     </td>
                 </tr>
                 <tr>
