@@ -72,6 +72,37 @@
                 </tr>
             </table>
         </fieldset>
+        <h2> CANTIDAD DE RESERVAS</h2>
+        <fieldset style="width: 30%">
+            <legend>Cantidad reservas</legend>
+            <table>
+                <tr>
+                    <th>FECHA INICIO:</th>
+                    <td><input type="date" id="fecha_iR"> </td>
+                </tr>
+                <tr>
+                    <th>FECHA FIN:</th>
+                    <td><input type="date" id="fecha_fR"> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="estadoReserva" required>
+                            <option value=all>Todo</option>
+                            <option value=completed>Completado</option>
+                            <option value=cancelled>Cancelado</option>
+                        </select>
+                    </td>
+                <tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="CONSULTAR" onclick="consultarCantidadReserva()">
+                    </td>
+                </tr>
+                <tr>
+                    <h5 id="TotalCantidad"></h5>
+                </tr>
+            </table>
+        </fieldset>
     </center>
 </body>
 

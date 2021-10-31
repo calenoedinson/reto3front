@@ -149,6 +149,7 @@ function limpiarFormulario() {
     $("#contrasenaU").val("");
     $("#guardaAdm").prop('disabled', false);
     $("#actualizaAdm").prop('disabled', true);
+    ingresoGitHub();
 }
 
 function ingresoGitHub() {

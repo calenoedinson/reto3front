@@ -51,6 +51,8 @@ function consultarReservaTodo() {
             $("#TablaResultadoReservas").append("<th>EMAIL</th>");
             $("#TablaResultadoReservas").append("<th>FECHA INICIO</th>");
             $("#TablaResultadoReservas").append("<th>FECHA ENTREGA</th>");
+            $("#TablaResultadoReservas").append("<th>STATUS</th>");
+            $("#TablaResultadoReservas").append("<th>ESTADO ACTUAL</th>");
             $("#TablaResultadoReservas").append("<th>EDITAR</th>");
             $("#TablaResultadoReservas").append("<th>ELIMINAR</th>");
             $("#TablaResultadoReservas").append("</tr>");
@@ -66,6 +68,8 @@ function consultarReservaTodo() {
                 }
                 $("#TablaResultadoReservas").append("<td>" + fechaI + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + fechaE + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + respuesta[i].status + "</td>");
+                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='COMPLETADO' onclick='actualizarEstadoCompletado(" + respuesta[i].idReservation + ")'>" + "<input type='button' value='CANCELADO' onclick='actualizarEstadoCancelado(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarReserva(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarReserva(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("</tr>");
@@ -130,6 +134,54 @@ function traeEditarReserva(ide) {
 
 }
 
+function actualizarEstadoCompletado(ide) {
+    var datos = {
+        idReservation: ide,
+        status: 'completed'
+    }
+
+    var datosaEnviar = JSON.stringify(datos);
+
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Reservation/update',
+        data: datosaEnviar,
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+        },
+        complete: function (xhr, status) {
+            alert('Estado Actualizado');
+            consultarReservaTodo();
+        }
+    });
+}
+
+function actualizarEstadoCancelado(ide) {
+    var datos = {
+        idReservation: ide,
+        status: "cancelled"
+    }
+
+    var datosaEnviar = JSON.stringify(datos);
+
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Reservation/update',
+        data: datosaEnviar,
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+        },
+        complete: function (xhr, status) {
+            alert('Estado Actualizado');
+            consultarReservaTodo();
+        }
+    });
+}
+
 function editarReserva() {
     if ($('#fecha_i').val().trim() == "" || $('#fecha_e').val().trim() == "" || $('#fecha_i').val() > $('#fecha_e').val()) {
         alert('Rango de fechas de reserva incorrecto, por favor verifique');
@@ -177,6 +229,39 @@ function eliminarReserva(ide) {
             limpiarFormulario();
         }
     });
+}
+
+function consultarCantidadReserva(fechaI, fechaF, estadoR) {
+    let estado = estadoR;
+    let contador = 0;
+    if (estado == "all") {
+        $.ajax({
+            url: 'http://168.138.144.46:8080/api/Reservation/report-dates/' + fechaI + "/" + fechaF,
+            type: 'GET',
+            dataType: 'json',
+            success: function (respuesta) {
+                for (i = 0; i < respuesta.length; i++) {
+                    contador += 1;
+                }
+            }
+        });
+        $("#TotalCantidad").val(contador);
+    } else if (estado == "completed") {
+
+    } else if (estado == "cancelled") {
+
+    }
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Reservation/report-dates/' + fechaI + "/" + fechaF,
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {
+            for (i = 0; i < respuesta.length; i++) {
+                contador += 1;
+            }
+        }
+    });
+    $("#TotalCantidad").val(contador);
 }
 
 function limpiarFormulario() {
