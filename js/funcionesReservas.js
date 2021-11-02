@@ -51,8 +51,7 @@ function consultarReservaTodo() {
             $("#TablaResultadoReservas").append("<th>EMAIL</th>");
             $("#TablaResultadoReservas").append("<th>FECHA INICIO</th>");
             $("#TablaResultadoReservas").append("<th>FECHA ENTREGA</th>");
-            $("#TablaResultadoReservas").append("<th>STATUS</th>");
-            $("#TablaResultadoReservas").append("<th>ESTADO ACTUAL</th>");
+            $("#TablaResultadoReservas").append("<th>ESTADO</th>");
             $("#TablaResultadoReservas").append("<th>EDITAR</th>");
             $("#TablaResultadoReservas").append("<th>ELIMINAR</th>");
             $("#TablaResultadoReservas").append("</tr>");
@@ -69,7 +68,6 @@ function consultarReservaTodo() {
                 $("#TablaResultadoReservas").append("<td>" + fechaI + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + fechaE + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + respuesta[i].status + "</td>");
-                $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='COMPLETADO' onclick='actualizarEstadoCompletado(" + respuesta[i].idReservation + ")'>" + "<input type='button' value='CANCELADO' onclick='actualizarEstadoCancelado(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='EDITAR' onclick='traeEditarReserva(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("<td>" + "<input type='button' value='ELIMINAR' onclick='eliminarReserva(" + respuesta[i].idReservation + ")'>" + "</td>");
                 $("#TablaResultadoReservas").append("</tr>");
@@ -88,7 +86,8 @@ function guardarReserva() {
             startDate: $('#fecha_i').val(),
             devolutionDate: $("#fecha_e").val(),
             cabin: { id: $('#cabanaR').val() },
-            client: { idClient: $('#clienteR').val() }
+            client: { idClient: $('#clienteR').val() },
+            status: $('#estadoReservaS').val()
         }
 
         var datosaEnviar = JSON.stringify(datos);
@@ -105,6 +104,7 @@ function guardarReserva() {
             complete: function (xhr, status) {
                 alert('Reserva guardada');
                 limpiarFormulario();
+                location.reload();
             }
         });
     }
@@ -127,6 +127,7 @@ function traeEditarReserva(ide) {
             }
             $("#fecha_i").val(fechaI);
             $("#fecha_e").val(fechaE);
+            $("#estadoReservaS").val(respuesta.status);
             $("#guardaRes").prop('disabled', true);
             $("#actualizaRes").prop('disabled', false);
         }
@@ -134,54 +135,6 @@ function traeEditarReserva(ide) {
 
 }
 
-function actualizarEstadoCompletado(ide) {
-    var datos = {
-        idReservation: ide,
-        status: 'completed'
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/update',
-        data: datosaEnviar,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Estado Actualizado');
-            consultarReservaTodo();
-        }
-    });
-}
-
-function actualizarEstadoCancelado(ide) {
-    let estado="cancelled";
-    var datos = {
-        idReservation: ide,
-        status: estado
-    }
-
-    var datosaEnviar = JSON.stringify(datos);
-
-    $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/update',
-        data: datosaEnviar,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (response) {
-            console.log(response);
-        },
-        complete: function (xhr, status) {
-            alert('Estado Actualizado');
-            consultarReservaTodo();
-        }
-    });
-}
 
 function editarReserva() {
     if ($('#fecha_i').val().trim() == "" || $('#fecha_e').val().trim() == "" || $('#fecha_i').val() > $('#fecha_e').val()) {
@@ -193,6 +146,7 @@ function editarReserva() {
             devolutionDate: $("#fecha_e").val(),
             cabin: { id: $('#cabanaR').val() },
             client: { idClient: $('#clienteR').val() },
+            status: $('#estadoReservaS').val()
         }
 
         var datosaEnviar = JSON.stringify(datos);
@@ -232,37 +186,46 @@ function eliminarReserva(ide) {
     });
 }
 
-function consultarCantidadReserva(fechaI, fechaF, estadoR) {
-    let estado = estadoR;
+function consultarCantidadReserva() {
+    let variable = document.getElementById("TotalCantidad");
     let contador = 0;
-    if (estado == "all") {
+    let fechaI = "";
+    let fechaE = "";
+
+    for (let index = 0; index < 10; index++) {
+        fechaI += $("#fecha_iR").val()[index];
+        fechaE += $("#fecha_fR").val()[index];
+    }
+    if ($('#fecha_iR').val().trim() == "" || $('#fecha_fR').val().trim() == "" || $('#fecha_iR').val() > $('#fecha_fR').val()) {
+        alert('Rango de fechas de consulta incorrecto, por favor verifique');
+    } else {
         $.ajax({
-            url: 'http://168.138.144.46:8080/api/Reservation/report-dates/' + fechaI + "/" + fechaF,
+            url: 'http://168.138.144.46:8080/api/Reservation/report-dates/' + fechaI + "/" + fechaE,
             type: 'GET',
             dataType: 'json',
             success: function (respuesta) {
-                for (i = 0; i < respuesta.length; i++) {
-                    contador += 1;
-                }
+                console.log(respuesta);
+                contador = respuesta.length;
+                console.log(contador);
+                variable.innerHTML = "Cantidad = " + contador;
             }
         });
-        $("#TotalCantidad").val(contador);
-    } else if (estado == "completed") {
-
-    } else if (estado == "cancelled") {
-
     }
+}
+
+function consultarCantidadEstados() {
+    let variable = document.getElementById("TotalCantidadReservas");
     $.ajax({
-        url: 'http://168.138.144.46:8080/api/Reservation/report-dates/' + fechaI + "/" + fechaF,
+        url: 'http://168.138.144.46:8080/api/Reservation/report-status',
         type: 'GET',
         dataType: 'json',
         success: function (respuesta) {
-            for (i = 0; i < respuesta.length; i++) {
-                contador += 1;
-            }
+            console.log(respuesta)
+            let completadas=respuesta.completed
+            let canceladas=respuesta.cancelled
+            variable.innerHTML = "Completadas = " + completadas +"<br> Canceladas = " + canceladas;
         }
     });
-    $("#TotalCantidad").val(contador);
 }
 
 function limpiarFormulario() {
@@ -270,6 +233,7 @@ function limpiarFormulario() {
     $("#fecha_e").val("");
     $("#cabanaR").val();
     $("#clienteR").val();
+    $("#estadoReservaS").val();
     $("#guardaRes").prop('disabled', false);
     $("#actualizaRes").prop('disabled', true);
 }

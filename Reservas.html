@@ -7,7 +7,7 @@
     <script src="js/funcionesReservas.js"></script>
 </head>
 
-<body onload="getDataCabana()  ;getDataCliente()">
+<body onload="getDataCabana()  ;getDataCliente() ; consultarCantidadEstados()">
     <center>
         <a href="Cabanas.html" title="CABAÑAS">CABAÑAS</a>&nbsp;&nbsp;&nbsp;
         <a href="Categorias.html" title="CATEGORIAS">CATEGORIAS</a>&nbsp;&nbsp;&nbsp;
@@ -43,6 +43,16 @@
                     <td><input type="date" id="fecha_e"> </td>
                 </tr>
                 <tr>
+                    <th>ESTADO  :</th>
+                    <td>                       
+                        <select id="estadoReservaS" required>
+                            <option value=created>Creado</option>
+                            <option value=completed>Completado</option>
+                            <option value=cancelled>Cancelado</option>
+                        </select>
+                    </td>
+                <tr>
+                <tr>
                     <td colspan="3">
                         <input type="button" id="guardaRes" value="GUARDAR" onclick="guardarReserva()">
                     </td>
@@ -72,10 +82,11 @@
                 </tr>
             </table>
         </fieldset>
-        <h2> CANTIDAD DE RESERVAS</h2>
+        <h2> CANTIDAD DE RESERVAS RANGO</h2>
         <fieldset style="width: 30%">
             <legend>Cantidad reservas</legend>
-            <table>
+            <table>                
+                <tr>
                 <tr>
                     <th>FECHA INICIO:</th>
                     <td><input type="date" id="fecha_iR"> </td>
@@ -83,25 +94,16 @@
                 <tr>
                     <th>FECHA FIN:</th>
                     <td><input type="date" id="fecha_fR"> </td>
-                </tr>
-                <tr>
-                    <td>
-                        <select id="estadoReserva" required>
-                            <option value=all>Todo</option>
-                            <option value=completed>Completado</option>
-                            <option value=cancelled>Cancelado</option>
-                        </select>
-                    </td>
-                <tr>
+                </tr>                
                 <tr>
                     <td colspan="3">
                         <input type="button" value="CONSULTAR" onclick="consultarCantidadReserva()">
                     </td>
-                </tr>
-                <tr>
-                    <h5 id="TotalCantidad"></h5>
-                </tr>
+                </tr>                
+                </tr>                
             </table>
+            <h5 id="TotalCantidad"></h5>
+            <h5 id="TotalCantidadReservas"></h5>
         </fieldset>
     </center>
 </body>
