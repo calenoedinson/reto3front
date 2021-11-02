@@ -159,9 +159,10 @@ function actualizarEstadoCompletado(ide) {
 }
 
 function actualizarEstadoCancelado(ide) {
+    let estado="cancelled";
     var datos = {
         idReservation: ide,
-        status: "cancelled"
+        status: estado
     }
 
     var datosaEnviar = JSON.stringify(datos);
@@ -191,7 +192,7 @@ function editarReserva() {
             startDate: $('#fecha_i').val(),
             devolutionDate: $("#fecha_e").val(),
             cabin: { id: $('#cabanaR').val() },
-            client: { idClient: $('#clienteR').val() }
+            client: { idClient: $('#clienteR').val() },
         }
 
         var datosaEnviar = JSON.stringify(datos);
