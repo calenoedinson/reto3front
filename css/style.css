@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid rgb(9, 97, 9);
+}
+
+body {
+  background: #e4e7e6 url("fondo.png") no-repeat fixed center;
+  opacity: 1.5;
+}
+
+html {
+  font-family: "helvetica neue", helvetica, arial, sans-serif;
+}
+
+div.ex
+{
+width:220px;
+padding:10px;
+border:5px solid gray;
+margin:0px;
+}
+
+thead th,
+tfoot th {
+  font-family: "Rock Salt", cursive;
+}
+
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+}
+
+tbody td {
+  text-align: center;
+}
+
+tfoot th {
+  text-align: right;
+}
