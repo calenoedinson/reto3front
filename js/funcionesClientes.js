@@ -125,7 +125,6 @@ function eliminarCliente(ide, mensaje, reservacion) {
     } else {
         alert('Hay mensajes o reservas asociados al cliente, no se puede eliminar, para eliminar, borre mensajes y reservas relacionados');
     }
-
 }
 
 function limpiarFormulario() {

@@ -102,8 +102,33 @@
                 </tr>                
                 </tr>                
             </table>
-            <h5 id="TotalCantidad"></h5>
-            <h5 id="TotalCantidadReservas"></h5>
+            <h3 id="TotalCantidad"></h3>
+            <h3 id="TotalCantidadReservas"></h3>
+        </fieldset>
+        <h2> MEJORES CLIENTES</h2>
+        <fieldset style="width: 30%">
+            <legend>Clientes</legend>
+            <table>
+                <tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" value="CONSULTAR" onclick="consultarClienteReserva()">
+                    </td>
+                </tr>
+                <tr>
+                    <table border="2" cellpadding="3" id="TablaResultadoResClien">
+                        <thead>
+                            <th>NOMBRE</th>
+                            <th>CORREO</th>
+                            <th>RESERVAS COMPLETAS</th>
+                            <th>RESERVAS CANCELADAS</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </tr>
+                </tr>
+            </table>
         </fieldset>
     </center>
 </body>

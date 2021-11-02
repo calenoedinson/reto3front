@@ -221,10 +221,64 @@ function consultarCantidadEstados() {
         dataType: 'json',
         success: function (respuesta) {
             console.log(respuesta)
-            let completadas=respuesta.completed
-            let canceladas=respuesta.cancelled
-            variable.innerHTML = "Completadas = " + completadas +"<br> Canceladas = " + canceladas;
+            let completadas = respuesta.completed
+            let canceladas = respuesta.cancelled
+            variable.innerHTML = "Completadas = " + completadas + "<br> Canceladas = " + canceladas;
         }
+    });
+}
+
+function ordenarAsc(p_array_json, p_key) {
+    p_array_json.sort(function (a, b) {
+        return a[p_key] > b[p_key];
+    });
+}
+function ordenarDesc(p_array_json, p_key) {
+    ordenarAsc(p_array_json, p_key); p_array_json.reverse();
+}
+function sortTable(table_id, sortColumn) {
+    var tableData = document.getElementById(table_id).getElementsByTagName('tbody').item(0);
+    var rowData = tableData.getElementsByTagName('tr');
+    for (var i = 0; i < rowData.length - 1; i++) {
+        for (var j = 0; j < rowData.length - (i + 1); j++) {
+            if (Number(rowData.item(j).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, "")) < Number(rowData.item(j + 1).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, ""))) {
+                tableData.insertBefore(rowData.item(j + 1), rowData.item(j));
+            }
+        }
+    }
+}
+function consultarClienteReserva() {
+
+    $.ajax({
+        url: 'http://168.138.144.46:8080/api/Reservation/report-clients',
+        type: 'GET',
+        dataType: 'json',
+        success: function (respuesta) {            
+            $("#TablaResultadoResClien").empty();
+            $("#TablaResultadoResClien").append("<tr>");
+            $("#TablaResultadoResClien").append("<th>NOMBRE</th>");
+            $("#TablaResultadoResClien").append("<th>CORREO</th>");
+            $("#TablaResultadoResClien").append("<th>RESERVAS COMPLETAS</th>");
+            $("#TablaResultadoResClien").append("<th>RESERVAS CANCELADAS</th>");
+            $("#TablaResultadoResClien").append("</tr>");
+            for (i = 0; i < respuesta.length; i++) {
+                $("#TablaResultadoResClien").append("<tr>");
+                $("#TablaResultadoResClien").append("<td>" + respuesta[i].client.name + "</td>");
+                $("#TablaResultadoResClien").append("<td>" + respuesta[i].client.email + "</td>");
+                let completo = 0;
+                let cancelado = 0;
+                for (j = 0; j < respuesta[i].client.reservations.length; j++) {
+                    if (respuesta[i].client.reservations[j].status == "cancelled") {
+                        cancelado += 1;
+                    } else if (respuesta[i].client.reservations[j].status == "completed") {
+                        completo += 1;
+                    }
+                }
+                $("#TablaResultadoResClien").append("<td>" + completo + "</td>");
+                $("#TablaResultadoResClien").append("<td>" + cancelado + "</td>");                
+            }
+            $("#TablaResultadoResClien").append(sortTable('TablaResultadoResClien', 3));
+        }        
     });
 }
 
