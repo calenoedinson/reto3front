@@ -19,6 +19,11 @@ input {
   border-radius: 10px;
 }
 
+input:disabled {
+  background-color: rgb(233, 27, 27);
+  color: rgb(247, 236, 236);
+}
+
 th {
   margin: 0 auto;
   background-color: #b4aea5;
